@@ -32,6 +32,13 @@ namespace OneIMExtensions.Utils
         }
 
         /// <summary>
+        /// Opens a OneIM session with default DB connection String provided via project settings and 
+        /// Account based system user
+        /// </summary>
+        /// <returns>A OneIM Session</returns>
+        public static ISession GetDefaultOneIMSession() => GetOneIMSession(ExtensionSettings.OneIMConnString);
+
+        /// <summary>
         /// Opens a OneIM session with the given connection string using Account Based System user auth module
         /// </summary>
         /// <param name="connString"></param>
@@ -40,16 +47,6 @@ namespace OneIMExtensions.Utils
         {
             IAuthProps authProps = new AuthProps("DialogUserAccountBased");
             return GetOneIMSession(connString, authProps);
-        }
-
-        /// <summary>
-        /// Opens a OneIM session with default DB connection String provided via project settings and 
-        /// Account based system user
-        /// </summary>
-        /// <returns>A OneIM Session</returns>
-        public static ISession GetDefaultOneIMSession()
-        {
-            return GetOneIMSession(ExtensionSettings.OneIMConnString);
         }
 
         /// <summary>
@@ -75,28 +72,21 @@ namespace OneIMExtensions.Utils
         /// <param name="sender"></param>
         /// <param name="args"></param>
         /// <returns>A resolved Assembly object</returns>
-        public static Assembly ResolveAssembly(object sender, ResolveEventArgs args)
+        public static Assembly ResolveOneIMBaseDirAssembly(object sender, ResolveEventArgs args) => ResolveAssembly(sender, args, ExtensionSettings.OneIMBaseDir);
+
+        /// <summary>
+        /// Provides an assembly resolver for a given assemblyDirectory
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
+        /// <param name="assemblyDirectory"></param>
+        /// <returns></returns>
+        public static Assembly ResolveAssembly(object sender, ResolveEventArgs args, string assemblyDirectory)
         {
             string assemblyName = new AssemblyName(args.Name).Name;
+            string assemblyPath = Path.Combine(assemblyDirectory, $"{assemblyName}.dll");
 
-            // Check the working directory first
-            string workingDirectoryAssemblyPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, $"{assemblyName}.dll");
-            if (File.Exists(workingDirectoryAssemblyPath))
-            {
-                return Assembly.LoadFrom(workingDirectoryAssemblyPath);
-            }
-
-            /* Check OneIM folder according to project settings, this resides in GeneratedExtensionSettings.cs
-             * The file is missing before first build, so VS will display an error at first, which can be ignored.
-             */
-            string assemblyPath = Path.Combine(ExtensionSettings.OneIMBaseDir, $"{assemblyName}.dll");
-
-            if (File.Exists(assemblyPath))
-            {
-                return Assembly.LoadFrom(assemblyPath);
-            }
-
-            return null;
+            return (File.Exists(assemblyPath)) ? Assembly.LoadFrom(assemblyPath) : null;
         }
 
         /// <summary>
@@ -104,7 +94,7 @@ namespace OneIMExtensions.Utils
         /// </summary>
         public static void SetAssemblyResolve()
         {
-            AppDomain.CurrentDomain.AssemblyResolve += ResolveAssembly;
+            AppDomain.CurrentDomain.AssemblyResolve += ResolveOneIMBaseDirAssembly;
         }
     }
 }
