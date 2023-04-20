@@ -2,25 +2,36 @@
   <PropertyGroup>
     <AppDataLocation>$(LocalAppData)\One Identity\One Identity Manager\AssemblyCache</AppDataLocation>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)'=='OneIM911'">
+    <OneIMBaseDir>c:\OneIM\frontends\fe911</OneIMBaseDir>
+    <AssemblySuffix>N6HbjTjBcMNip9S5RrlDgjk7XwmhT</AssemblySuffix>
+    <!-- replace ; in ConnectionString with %3b -->
+    <ConnectionString>Data Source=OneIMDB-91,1491%3bInitial Catalog=OneIM%3bUser ID=OneIM_Admin%3bPassword=Pass_word1</ConnectionString>
+    <PreprocessorVersion>ONEIM911</PreprocessorVersion>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)'=='OneIM910'">
     <OneIMBaseDir>c:\OneIM\frontends\fe910</OneIMBaseDir>
     <AssemblySuffix>N6HbjTjBcMNip9S5RrlDgjk7XwmhT</AssemblySuffix>
     <!-- replace ; in ConnectionString with %3b -->
     <ConnectionString>Data Source=OneIMDB-91,1491%3bInitial Catalog=OneIM%3bUser ID=OneIM_Admin%3bPassword=Pass_word1</ConnectionString>
+    <PreprocessorVersion>ONEIM910</PreprocessorVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)'=='OneIM900'">
     <OneIMBaseDir>c:\OneIM\frontends\fe900</OneIMBaseDir>
     <AssemblySuffix>AWQvRcOLkaRPshZfIfnJzn2GTBdY</AssemblySuffix>
     <ConnectionString>Data Source=OneIMDB-90,1490%3bInitial Catalog=OneIM%3bUser ID=OneIM_Admin%3bPassword=Pass_word1</ConnectionString>
+    <PreprocessorVersion>ONEIM900</PreprocessorVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)'=='OneIM821'">
     <OneIMBaseDir>c:\OneIM\frontends\fe821</OneIMBaseDir>
     <AssemblySuffix>3KqOU62BP2KCrYVQebMUKoBFYSViPFq</AssemblySuffix>
     <ConnectionString>Data Source=OneIMDB-82,1482%3bInitial Catalog=OneIM%3bUser ID=OneIM_Admin%3bPassword=Pass_word1</ConnectionString>
+    <PreprocessorVersion>ONEIM821</PreprocessorVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)'=='OneIM815'">
     <OneIMBaseDir>c:\OneIM\frontends\fe815</OneIMBaseDir>
     <AssemblySuffix>umn11A2OxfPlQ7wGpmwSTB6dEps</AssemblySuffix>
     <ConnectionString>Data Source=OneIMDB-81,1481%3bInitial Catalog=OneIM%3bUser ID=OneIM_Admin%3bPassword=Pass_word1</ConnectionString>
+    <PreprocessorVersion>ONEIM815</PreprocessorVersion>
   </PropertyGroup>
 </Project>

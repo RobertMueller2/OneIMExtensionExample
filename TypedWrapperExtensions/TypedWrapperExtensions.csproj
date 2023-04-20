@@ -14,46 +14,12 @@
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'OneIM910|AnyCPU'">
-    <DefineConstants>TRACE;DEBUG;ONEIM910</DefineConstants>
+  <PropertyGroup Condition="'$(Platform)' == 'AnyCPU'">
+    <DefineConstants>TRACE;DEBUG;$(PreprocessorVersion)</DefineConstants>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\OneIM910\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;ONEIM910</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <WarningsAsErrors>1591</WarningsAsErrors>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'OneIM900|AnyCPU'">
-    <DefineConstants>TRACE;DEBUG;ONEIM900</DefineConstants>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\OneIM900\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;ONEIM900</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <WarningsAsErrors>1591</WarningsAsErrors>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'OneIM821|AnyCPU'">
-    <DefineConstants>TRACE;DEBUG;ONEIM821</DefineConstants>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\OneIM821\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;ONEIM821</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <WarningsAsErrors>1591</WarningsAsErrors>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'OneIM815|AnyCPU'">
-    <DefineConstants>TRACE;DEBUG;ONEIM815</DefineConstants>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\OneIM815\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;ONEIM815</DefineConstants>
+    <OutputPath>bin\$(Configuration)\</OutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <WarningsAsErrors>1591</WarningsAsErrors>

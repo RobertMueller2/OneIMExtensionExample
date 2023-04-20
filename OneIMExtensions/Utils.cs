@@ -50,16 +50,6 @@ namespace OneIMExtensions.Utils
         }
 
         /// <summary>
-        /// Opens a OneIM session with default DB connection String provided via project settings and 
-        /// Account based system user
-        /// </summary>
-        /// <returns>A OneIM Session</returns>
-        public static ISession GetDefaultOneIMSession()
-        {
-            return GetOneIMSession(ExtensionSettings.OneIMConnString);
-        }
-
-        /// <summary>
         /// Opens a OneIM session with the given connection string and DialogUser/Password combination
         /// </summary>
         /// <param name="connString"></param>
