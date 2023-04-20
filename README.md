@@ -44,7 +44,7 @@ I should do this fairly soon after a release.
 
 ### I don't want to wait, can I add SP5 of release 25.4?
 
-You could. You would have to edit `localsettings.props` as well as all subdirectories' `.csproj` files.
+You could. You would have to edit `localsettings.props` and add a new configuration for the new version.
 
 ### Can I compile this in VS Code?
 
