@@ -42,6 +42,9 @@
     <Reference Include="VI.DB">
       <HintPath>$(OneIMBaseDir)\VI.DB.dll</HintPath>
     </Reference>
+    <Reference Include="VI.DB">
+      <HintPath>$(OneIMBaseDir)\NLog.dll</HintPath>
+    </Reference>
     <Reference Include="TypedWrappers_$(AssemblySuffix)">
       <HintPath>$(AppDataLocation)\TypedWrappers_$(AssemblySuffix).dll</HintPath>
     </Reference>

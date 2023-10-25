@@ -52,7 +52,7 @@ Probably. I have not tried with this project. The repository lacks a `.vscode` d
 
 ### How do I use this in LinqPad?
 
-Add references for 
+Add references for
 
  - `OneIMExtensions.dll`, `TypedWrapperExtension.dll`, `TypedWrappers_<assembly suffix>.dll`
  - probably `VI.DB.dll` and `VI.Base.dll` depending on what you want to do
@@ -61,6 +61,7 @@ Customizer or Authenticator dependencies should be dynamically resolved, so long
 
 ```C#
 Utils.SetAssemblyResolve();
+var logger = Utils.GetLogger();
 var session = Utils.GetDefaultOneIMSession();
 
 var c = session.Source().Get<DialogDatabase>(Query.From("DialogDatabase").SelectNone());

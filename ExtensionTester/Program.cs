@@ -18,6 +18,7 @@ namespace ExtensionTester
         static void Main(string[] args)
         {
             Utils.SetAssemblyResolve();
+            var logger = Utils.Logger.Value;
             var session = Utils.GetDefaultOneIMSession();
 
             Tester.RunTest(session);
