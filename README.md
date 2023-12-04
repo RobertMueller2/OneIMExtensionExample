@@ -32,6 +32,7 @@ Usage
    - optional: provide a default connection string for use in the `ExtensionTester` or method `Utils.GetDefaultOneIMSession`
  - After opening the project,
    - optional: Set ExtensionTester as start project for the solution
+ - you can use build.bat where you can build a configuration (e.g. OneIM911) without opening Visual Studio. Requires msbuild.cfg, copy one from "msbuild.cfg examples".
 
 `GeneratedExtensionSettings.cs` in project OneIMExtensions is created by MSBuild before compiling. Therefore it is initially missing, and upon switching configurations, does not contain the correct directory and connectionstring until building.  
   

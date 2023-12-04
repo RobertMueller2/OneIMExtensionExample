@@ -4,3 +4,4 @@
 *.cache
 */GeneratedExtensionSettings.cs
 localsettings.props
+msbuild.cfg
