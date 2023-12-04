@@ -10,6 +10,14 @@
     <ConnectionString>Data Source=OneIMDB-92,1492%3bInitial Catalog=OneIM%3bUser ID=OneIM_Admin%3bPassword=Pass_word1</ConnectionString>
     <PreprocessorVersion>ONEIM920</PreprocessorVersion>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)'=='OneIM912'">
+    <OneIMBaseDir>c:\OneIM\frontends\fe912</OneIMBaseDir>
+    <!-- replace AssemblySuffix with suffix observed in table DialogScriptAssembly -->
+    <AssemblySuffix>N6HbjTjBcMNip9S5RrlDgjk7XwmhT</AssemblySuffix>
+    <!-- replace ; in ConnectionString with %3b -->
+    <ConnectionString>Data Source=OneIMDB-91,1491%3bInitial Catalog=OneIM%3bUser ID=OneIM_Admin%3bPassword=Pass_word1</ConnectionString>
+    <PreprocessorVersion>ONEIM912</PreprocessorVersion>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)'=='OneIM911'">
     <OneIMBaseDir>c:\OneIM\frontends\fe911</OneIMBaseDir>
     <!-- replace AssemblySuffix with suffix observed in table DialogScriptAssembly -->
