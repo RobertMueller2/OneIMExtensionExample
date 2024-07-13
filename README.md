@@ -80,7 +80,7 @@ The first line ensures that customizer and authenticator dependencies are found.
 
 ### Can I use a connection dialog?
 
-It's possible, but I didn't have much use for it yet at this point. When e.g. used in LinqPad in a lab setting, it only slows me down. I'll admit though it'd be a good showcase feature.
+It's possible, there is an example in the OneIM SDK, but I didn't have much use for it yet at this point. When e.g. used in LinqPad in a lab setting, it only slows me down. I'll admit though it'd be a good showcase feature.
 
 ### Can you extend this with foo or bar?
 
