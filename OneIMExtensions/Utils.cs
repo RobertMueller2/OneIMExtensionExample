@@ -7,12 +7,9 @@ using System.Threading.Tasks;
 using VI.DB;
 using VI.DB.Auth;
 using VI.DB.Entities;
-using VI.DB.Sync;
-using VI.Base;
 using System.Reflection;
 using System.IO;
 using NLog;
-using System.Diagnostics;
 
 namespace OneIMExtensions.Utils
 {
