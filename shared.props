@@ -1,3 +1,6 @@
 <Project>
   <Import Project="localsettings.props" />
+  <PropertyGroup>
+    <PreprocessorVersion>$(Configuration.ToUpper())</PreprocessorVersion>
+  </PropertyGroup>
 </Project>
