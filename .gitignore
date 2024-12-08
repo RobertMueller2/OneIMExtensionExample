@@ -6,3 +6,4 @@ build/*
 */GeneratedExtensionSettings.cs
 localsettings.props
 msbuild.cfg
+configurations.txt
