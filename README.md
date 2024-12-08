@@ -85,7 +85,7 @@ It's possible, there is an example in the OneIM SDK, but I didn't have much use 
 
 ### Can you extend this with foo or bar?
 
-*Theoretically*, yes. But I do not intend for this VS project to be a utility library or cover implementation specific use cases. Like stated above, it's for demonstration and reference purposes. Frankly, OneIM is a job and a hobby, and being the pragmatic idealist that I am, with this personal project I do not wish to compete with my or anyone elses commercial activities.  
+*Theoretically*, yes. But I do not intend for this VS project to be a utility library or cover implementation specific use cases. Like stated above, it's for demonstration and reference purposes. Frankly, OneIM is a job and a hobby, and being the pragmatic idealist that I am, with this personal project I do not wish to compete with my or anyone elses commercial activities. Any likely additions I could think of couldn't be provided under the given licence anyway.
   
 The project's primary value from my point of view is the MSBuild stuff, which I figured out over time in my spare time. The OneIM API related parts on the other hand are in no way spectacular, clever or unique. And very likely never will be.
 

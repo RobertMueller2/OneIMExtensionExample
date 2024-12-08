@@ -1,12 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using VI.DB;
 using VI.DB.Model;
 using VI.DB.Entities;
-using VI.DB.MetaData;
 using VI.DB.Sync;
 
 namespace TypedWrapperExensions
@@ -25,8 +19,7 @@ namespace TypedWrapperExensions
             if (String.IsNullOrEmpty(p.UID_Department)) { return null; }
 
             return session.Source().Get<Department>(p.UID_Department);
-        } 
-        
-        
+        }
+
     }
 }

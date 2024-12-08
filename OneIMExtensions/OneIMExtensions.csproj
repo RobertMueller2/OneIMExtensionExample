@@ -20,7 +20,7 @@ namespace OneIMExtensions.Utils {
     public static class ExtensionSettings {
 
         public const string OneIMBaseDir = @"$(OneIMBaseDir)"%3b
-        public const string OneIMConnString = @"$(ConnectionString)"%3b
+        public const string OneIMDBConnString = @"$(ConnectionString)"%3b
 
     }
 }

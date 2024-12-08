@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using VI.DB;
 using VI.DB.Auth;
@@ -70,7 +66,7 @@ namespace OneIMExtensions.Utils
         /// Account based system user
         /// </summary>
         /// <returns>A OneIM Session</returns>
-        public static ISession GetDefaultOneIMSession() => GetOneIMSession(ExtensionSettings.OneIMConnString);
+        public static ISession GetDefaultOneIMSession() => GetOneIMSession(ExtensionSettings.OneIMDBConnString);
 
         /// <summary>
         /// Opens a OneIM session with the given connection string using Account Based System user auth module
