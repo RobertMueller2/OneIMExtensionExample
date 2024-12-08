@@ -26,6 +26,7 @@ Usage
 
  - Before opening the project, copy `localsettings.props.template` to `localsettings.props`.
  - Edit `localsettings.props`
+   - Please note, commit e1716568722b78e821af7706a5c2457222708c31 removed the need to specify an explicit PreprocessorVersion per OneIM version.
  - For each version you would like to build against:
    - provide an installation directory (`<OneIMBaseDir>`). This ensures that `VI.DB` and `VI.Base` are found at compile time and further dependencies (customizers, authenticator) can be resolved at runtime
    - provide an assembly suffix as observed in table `DialogScriptAssembly` (`<AssemblySuffix>`). This ensures that `TypedWrappers_<AssemblySuffix>.dll` is found at compile time
