@@ -1,5 +1,7 @@
 OneIM Extension Example
 ==
+.
+.NET Framework Branch, this is still using the old VS project files. The main branch will feature SDK style projects soon to accommodate OneIM's switch to .NET 8. As soon as that is done, I might add multi targeting to also include the framework versions. But maybe that's too much work, we'll see.
 
 What is this?
 --
