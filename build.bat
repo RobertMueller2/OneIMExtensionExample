@@ -1,12 +1,33 @@
 @echo off
 
 set msbuildcfg=msbuild.cfg
+set MSBUILD_PATH=
+set havedotnet=
+set havemsbuild=
+
 set localsettings=localsettings.props
 set configs=configurations.txt
 set solution=OneIMExtensionExample.sln
 
-if not exist %msbuildcfg% (
-    echo Error: %msbuildcfg% does not exist. See "msbuild.cfg examples" subdirectory.
+if exist %msbuildcfg% (
+    for /f "usebackq delims=" %%x in (%msbuildcfg%) do (set "%%x")
+)
+
+if defined MSBUILD_PATH (
+  if exist %MSBUILD_PATH% (
+    set havemsbuild=12
+    set anyfound=1
+  )
+)
+
+where /Q dotnet.exe && (
+  set havedotnet=34
+  set anyfound=1
+)
+
+if not "%anyfound%"=="1" (
+    echo Neither MSBuild nor dotnet build found.
+    echo=
     pause
     exit /b 1
 )
@@ -33,7 +54,7 @@ for /F "delims=" %%x in ('dir /B /O:-D /T:W %configs% %solution%') do (
 
 if %generateconfigs%==1 (
   if exist %configs% (
-    rm %configs%
+    del %configs%
     echo regenerating %configs%
   ) else (
     echo File %configs% does not exist, generating
@@ -96,6 +117,33 @@ if %errorlevel% neq 0 (
   exit /b 1
 )
 
-%MSBUILD_PATH% /t:Build /p:Configuration=%CONFIG%
+REM einfach öfter mal GOTO wagen ;)
+if defined havemsbuild (
+  if not defined havedotnet goto build_msbuild
+)
 
+if defined havedotnet  (
+  if not defined havemsbuild goto build_dotnet
+)
+
+echo 1. dotnet
+echo 2. MSBuild
+choice /c 12 /m "Select build option: "
+
+if errorlevel 2 (
+  goto build_msbuild
+)
+if errorlevel 1 (
+  goto build_dotnet
+)
+
+:build_msbuild
+%MSBUILD_PATH% /p:Configuration=%CONFIG%
+goto end
+
+:build_dotnet
+dotnet build -c %CONFIG%
+goto end
+
+:end
 pause

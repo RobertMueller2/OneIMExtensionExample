@@ -2,5 +2,21 @@
   <Import Project="localsettings.props" />
   <PropertyGroup>
     <PreprocessorVersion>$(Configuration.ToUpper())</PreprocessorVersion>
+    <VersionNumber>$([System.Text.RegularExpressions.Regex]::Match($(Configuration), '\d+').Value)</VersionNumber>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework'">
+    <DefineConstants>$(DefineConstants);NETFRAMEWORK</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="$(VersionNumber) &lt; 930">
+    <TargetFramework>net481</TargetFramework>
+    <LangVersion>10.0</LangVersion>
+    <NLogFilename>globallog.config</NLogFilename>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="$(VersionNumber) &gt;= 930">
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <NLogFilename>nlog.config</NLogFilename>
+  </PropertyGroup>
+
 </Project>

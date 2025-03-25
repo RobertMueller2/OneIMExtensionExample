@@ -1,4 +1,4 @@
-﻿using OneIMExtensions.Utils;
+﻿using OneIMExtensions;
 using System;
 
 namespace ExtensionTester
@@ -11,11 +11,10 @@ namespace ExtensionTester
         /// <param name="args"></param>
         static void Main(string[] args)
         {
-            Utils.SetAssemblyResolve();
-            var logger = Utils.Logger.Value;
-            var session = Utils.GetDefaultOneIMSession();
+            Utils.Initialize();
+            var logger = NLogExtensions.Logger.Value;            
 
-            Tester.RunTest(session);
+            Tester.RunTest();
 
             Console.Write("Press any key to continue... ");
             Console.ReadKey();

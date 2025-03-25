@@ -4,6 +4,7 @@ build/*
 .vs
 *.cache
 */GeneratedExtensionSettings.cs
+ExtensionTester/Tester.cs
 localsettings.props
 msbuild.cfg
 configurations.txt

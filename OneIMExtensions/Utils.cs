@@ -1,52 +1,12 @@
-﻿using System;
-
-using VI.DB;
+﻿using VI.DB;
 using VI.DB.Auth;
 using VI.DB.Entities;
 using System.Reflection;
-using System.IO;
-using NLog;
 
-namespace OneIMExtensions.Utils
+namespace OneIMExtensions
 {
     public static class Utils
     {
-
-        private static readonly string NLogConfig = $@"<nlog autoReload=""true"" xmlns=""http://www.nlog-project.org/schemas/NLog.xsd"" xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"">
-    <variable name=""appName"" value=""OneIMExtensionExample"" />
-    <include file=""{ExtensionSettings.OneIMBaseDir}\globallog.config"" ignoreErrors=""true"" />
-</nlog>
-";
-
-        private static readonly string NLogConfigPath = string.Format(@"{0}\nlog.config", Path.GetDirectoryName(Assembly.GetAssembly(typeof(Utils)).Location));
-
-        /// <summary>
-        /// Prepares an NLog.config that sets appName to OneIMExtensionExample and includes OneIMBaseDir's globallog.config
-        /// </summary>
-        public static void PrepareNLogConfig() {            
-            Console.WriteLine($"Writing nlog.config to {NLogConfigPath}");
-            File.WriteAllText(NLogConfigPath, NLogConfig);
-        }
-
-        /// <summary>
-        /// Prepares NLog.config and provides a logger. This requires a prepared nlog.config in the same directory as the dll.
-        /// This is needed so an appName can be used with the default globallog.config.
-        /// If this is no good, you can always use NLog's GetLogger directly, e.g. with a dedicated config.
-        /// </summary>
-        public static Lazy<Logger> Logger = new Lazy<Logger>(() => {
-            PrepareNLogConfig();
-            var logger = LogManager.GetLogger("OneIMExtensionExample");
-            Console.WriteLine($"Loading nlog.config from {NLogConfigPath}");
-            LogManager.Configuration = new NLog.Config.XmlLoggingConfiguration(NLogConfigPath);
-            return logger;
-        });
-
-        /// <summary>
-        /// Gets a logger
-        /// </summary>
-        /// <returns></returns>
-        public static Logger GetLogger() => Logger.Value;
-
         /// <summary>
         /// Opens a OneIM session with the given connnection string and authprops
         /// </summary>
@@ -66,14 +26,28 @@ namespace OneIMExtensions.Utils
         /// Account based system user
         /// </summary>
         /// <returns>A OneIM Session</returns>
-        public static ISession GetDefaultOneIMSession() => GetOneIMSession(ExtensionSettings.OneIMDBConnString);
+        public static ISession GetDefaultOneIMSession() => GetDialogUserAccountBasedOneIMSession(ExtensionSettings.OneIMDBConnString);
+
+        /// <summary>
+        /// Opens dialog to get a session.
+        /// </summary>
+        /// <returns></returns>
+        public static ISession? GetOneIMSessionFromDialog() {
+
+            var cdlg = new VI.CommonDialogs.ConnectionDialog();
+            if (cdlg.ShowDialog() != System.Windows.Forms.DialogResult.OK) {
+                return null;
+            }
+
+            return cdlg.ConnectData.Connection.Session;
+        }
 
         /// <summary>
         /// Opens a OneIM session with the given connection string using Account Based System user auth module
         /// </summary>
         /// <param name="connString"></param>
         /// <returns>A OneIM session</returns>
-        public static ISession GetOneIMSession(string connString)
+        public static ISession GetDialogUserAccountBasedOneIMSession(string connString)
         {
             IAuthProps authProps = new AuthProps("DialogUserAccountBased");
             return GetOneIMSession(connString, authProps);
@@ -95,6 +69,7 @@ namespace OneIMExtensions.Utils
             return GetOneIMSession(connString, authProps);
         }
 
+#if NETFRAMEWORK
         /// <summary>
         /// Provides an assembly resolver that includes the OneIMBaseDir defined in localsettings.props.
         /// The ExtensionTester uses these to resolve customizers. It can also be useful for REPL, LinqPad etc
@@ -102,7 +77,8 @@ namespace OneIMExtensions.Utils
         /// <param name="sender"></param>
         /// <param name="args"></param>
         /// <returns>A resolved Assembly object</returns>
-        public static Assembly ResolveOneIMBaseDirAssembly(object sender, ResolveEventArgs args) => ResolveAssembly(sender, args, ExtensionSettings.OneIMBaseDir);
+        public static Assembly? ResolveOneIMBaseDirAssembly(object sender, ResolveEventArgs args) => ResolveAssembly(sender, args, ExtensionSettings.OneIMBaseDir);
+
 
         /// <summary>
         /// Provides an assembly resolver for a given assemblyDirectory
@@ -111,7 +87,7 @@ namespace OneIMExtensions.Utils
         /// <param name="args"></param>
         /// <param name="assemblyDirectory"></param>
         /// <returns></returns>
-        public static Assembly ResolveAssembly(object sender, ResolveEventArgs args, string assemblyDirectory)
+        public static Assembly? ResolveAssembly(object sender, ResolveEventArgs args, string assemblyDirectory)
         {
             string assemblyName = new AssemblyName(args.Name).Name;
             string assemblyPath = Path.Combine(assemblyDirectory, $"{assemblyName}.dll");
@@ -126,5 +102,58 @@ namespace OneIMExtensions.Utils
         {
             AppDomain.CurrentDomain.AssemblyResolve += ResolveOneIMBaseDirAssembly;
         }
+
+#endif
+
+#if NET
+
+        /// <summary>
+        /// initializes
+        /// </summary>
+        public static void CopyBinaries() {
+
+            var logger = NLogExtensions.GetLogger();
+
+            var binaries = new string[] {
+                "AccountBasedUserAuthenticator",
+                "AE.Controls",
+                "System.ServiceModel.Primitives",
+                "VI.CommonDialogs"
+            }.Select(x => string.Format("{0}\\{1}.dll", ExtensionSettings.OneIMBaseDir, x))
+            .Union(Directory.GetFiles(ExtensionSettings.OneIMBaseDir, "*.Customizer.dll"));
+
+            var wd = Path.GetDirectoryName(Assembly.GetAssembly(typeof(Utils))?.Location);
+            // no reason this should be null, but why not ;)
+            if (wd == null) {
+                return;
+            }
+
+            foreach (var fn in binaries) {
+                var tfn = Path.Combine(wd, Path.GetFileName(fn));
+                if (File.Exists(tfn)) {
+                    continue;
+                }                
+                logger.Trace(String.Format("Copying {0} to {1}", fn, tfn));
+                File.Copy(fn, tfn);
+            }
+        }
+#endif
+
+        /// <summary>
+        /// Sets assembly resolver (.NET Framework). For older OneIM versions, dynamic dependencies like AccountBasedSystemUser
+        /// or customizers can be loaded that way.
+        /// 
+        /// This does not work with .NET. Of course, for each of the potential binaries we could add a NuGet package or reference.
+        /// But this would make this DLL skeleton depend somewhat on the selected modules in OneIM. Also, it does not work well
+        /// with LinqPad.
+        /// </summary>
+        public static void Initialize() {
+#if NETFRAMEWORK
+            SetAssemblyResolve();
+#elif NET
+            CopyBinaries();
+#endif
+        }
     }
+
 }

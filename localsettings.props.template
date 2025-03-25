@@ -9,7 +9,7 @@
     <!-- replace ; in ConnectionString with %3b -->
     <ConnectionString>Data Source=OneIMDB-92,1492%3bInitial Catalog=OneIM%3bUser ID=OneIM_Admin%3bPassword=Pass_word1</ConnectionString>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)'=='OneIM921'">
+  <PropertyGroup Condition="'$(Configuration)'=='OneIM920'">
     <OneIMBaseDir>c:\OneIM\frontends\fe920</OneIMBaseDir>
     <!-- replace AssemblySuffix with suffix observed in table DialogScriptAssembly -->
     <AssemblySuffix>Te1Z4FR3GBeP8WLWSyGuKxCOJxcLl3h</AssemblySuffix>
@@ -50,19 +50,5 @@
     <AssemblySuffix>AWQvRcOLkaRPshZfIfnJzn2GTBdY</AssemblySuffix>
     <!-- replace ; in ConnectionString with %3b -->
     <ConnectionString>Data Source=OneIMDB-90,1490%3bInitial Catalog=OneIM%3bUser ID=OneIM_Admin%3bPassword=Pass_word1</ConnectionString>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)'=='OneIM821'">
-    <OneIMBaseDir>c:\OneIM\frontends\fe821</OneIMBaseDir>
-    <!-- replace AssemblySuffix with suffix observed in table DialogScriptAssembly -->
-    <AssemblySuffix>3KqOU62BP2KCrYVQebMUKoBFYSViPFq</AssemblySuffix>
-    <!-- replace ; in ConnectionString with %3b -->
-    <ConnectionString>Data Source=OneIMDB-82,1482%3bInitial Catalog=OneIM%3bUser ID=OneIM_Admin%3bPassword=Pass_word1</ConnectionString>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)'=='OneIM815'">
-    <OneIMBaseDir>c:\OneIM\frontends\fe815</OneIMBaseDir>
-    <!-- replace AssemblySuffix with suffix observed in table DialogScriptAssembly -->
-    <AssemblySuffix>umn11A2OxfPlQ7wGpmwSTB6dEps</AssemblySuffix>
-    <!-- replace ; in ConnectionString with %3b -->
-    <ConnectionString>Data Source=OneIMDB-81,1481%3bInitial Catalog=OneIM%3bUser ID=OneIM_Admin%3bPassword=Pass_word1</ConnectionString>
   </PropertyGroup>
 </Project>

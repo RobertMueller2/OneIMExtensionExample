@@ -1,5 +1,4 @@
-﻿using System;
-
+﻿
 namespace OneIMExtensions
 {
     public static class ObjectExtensions
