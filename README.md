@@ -97,7 +97,7 @@ nuget pack TypedWrapperExtensions.dll.nuspec
 
 Then copy the nupkg files to your frontends NuGet subdirectory.
 
-Working example, same to above:
+Working example, pretty much the same as above:
 
 ```
 #If Not SCRIPTDEBUGGER
