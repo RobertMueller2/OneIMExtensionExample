@@ -2,7 +2,7 @@
 using VI.DB.Entities;
 using VI.DB.Sync;
 
-namespace TypedWrapperExensions
+namespace TypedWrapperExtensions
 {
     public static class PersonExtensions
     {
