@@ -117,6 +117,8 @@ namespace OneIMExtensions
             var binaries = new string[] {
                 "AccountBasedUserAuthenticator",
                 "AE.Controls",
+                "Microsoft.Win32.SystemEvents",
+                "System.Drawing.Common",
                 "System.ServiceModel.Primitives",
                 "VI.CommonDialogs"
             }.Select(x => string.Format("{0}\\{1}.dll", ExtensionSettings.OneIMBaseDir, x))

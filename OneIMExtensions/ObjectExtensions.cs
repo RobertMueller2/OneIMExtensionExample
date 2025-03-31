@@ -1,4 +1,9 @@
-﻿
+﻿#if NETFRAMEWORK
+using Newtonsoft.Json;
+#elif NET
+using System.Text.Json;
+#endif
+
 namespace OneIMExtensions
 {
     public static class ObjectExtensions
@@ -9,7 +14,11 @@ namespace OneIMExtensions
         /// </summary>
         /// <param name="x"></param>
         /// <returns></returns>
-        public static string ConvertObjectToJson<T>(this T x) => Newtonsoft.Json.JsonConvert.SerializeObject(x, Newtonsoft.Json.Formatting.Indented);
+#if NETFRAMEWORK
+        public static string ConvertObjectToJson<T>(this T x) => JsonConvert.SerializeObject(x, Formatting.Indented);
+#elif NET
+        public static string ConvertObjectToJson<T>(this T x) => JsonSerializer.Serialize(x, new JsonSerializerOptions { WriteIndented = true });
+#endif
 
         /// <summary>
         /// Poor man's Dump(), pale in comparison to LinqPad's ;)
