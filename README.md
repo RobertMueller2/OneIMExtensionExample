@@ -184,7 +184,7 @@ See Linqpad 8 screenshots in the assets subfolder.
 
 ### Can I use a connection dialog?
 
-Yes, see `Utils.GetOneIMSessionFromDialog()`, with limitations:
+Yes, see `ConnectDialogExtensions.GetOneIMSessionFromDialog()`, with limitations:
 
 - This does not work from LinqPad 8 with .NET and I have not yet figured out why
 - If the previously selected connection causes an error, loading System.Win32.SystemEvents can fail due to version mismatch. This is likely related to the many build warnings the project causes at this point.
