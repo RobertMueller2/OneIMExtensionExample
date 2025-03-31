@@ -1,5 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
+  
+  <PropertyGroup>
+    <GuiTarget>true</GuiTarget>
+  </PropertyGroup>
   <Import Project="..\shared.props" />
   <PropertyGroup>
     <ImplicitUsings>enable</ImplicitUsings>
@@ -15,7 +18,9 @@
       <Tester>$(MSBuildProjectDirectory)\Tester.cs</Tester>
       <Namespace>$(RootNamespace)</Namespace>
       <Content>
+using GuiExtensions%3b
 using OneIMExtensions%3b
+using TypedWrapperExtensions%3b
 using VI.DB.Entities%3b
 using VI.DB.Model%3b
 using VI.DB.Sync%3b
@@ -51,52 +56,22 @@ namespace ExtensionTester {
     <WriteLinesToFile File="$(Tester)" Lines="$(Content)" Overwrite="true" Encoding="Unicode" />
   </Target>
 
-
   <ItemGroup Condition="'$(Configuration)'=='OneIM930'">
-    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.2" />
-    <PackageReference Include="VI.Base" Version="9.3.0-278876" />
-    <PackageReference Include="VI.DB" Version="9.3.0-278876" />
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>$(OneIMBaseDir)\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="TypedWrappers_$(AssemblySuffix)">
-      <HintPath>$(AppDataLocation)\TypedWrappers_$(AssemblySuffix).dll</HintPath>
+    <Reference Include="VI.CommonDialogs">
+      <HintPath>$(OneIMBaseDir)\VI.CommonDialogs.dll</HintPath>
     </Reference>
     <Reference Include="System.Drawing.Common">
       <HintPath>$(OneIMBaseDir)\System.Drawing.Common.dll</HintPath>
     </Reference>
   </ItemGroup>
 
-  <ItemGroup Condition="$(VersionNumber) &lt; 930">
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>$(OneIMBaseDir)\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml" />
-    <Reference Include="VI.Base">
-      <HintPath>$(OneIMBaseDir)\VI.Base.dll</HintPath>
-    </Reference>
-    <Reference Include="VI.DB">
-      <HintPath>$(OneIMBaseDir)\VI.DB.dll</HintPath>
-    </Reference>
-    <Reference Include="NLog">
-      <HintPath>$(OneIMBaseDir)\NLog.dll</HintPath>
-    </Reference>
+  <ItemGroup>
     <Reference Include="TypedWrappers_$(AssemblySuffix)">
       <HintPath>$(AppDataLocation)\TypedWrappers_$(AssemblySuffix).dll</HintPath>
     </Reference>
-  </ItemGroup>
-
-  <ItemGroup>
+    <ProjectReference Include="..\GuiExtensions\GuiExtensions.csproj" />
     <ProjectReference Include="..\OneIMExtensions\OneIMExtensions.csproj" />
     <ProjectReference Include="..\TypedWrapperExtensions\TypedWrapperExtensions.csproj" />
   </ItemGroup>
-
 
 </Project>

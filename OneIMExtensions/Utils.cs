@@ -29,20 +29,6 @@ namespace OneIMExtensions
         public static ISession GetDefaultOneIMSession() => GetDialogUserAccountBasedOneIMSession(ExtensionSettings.OneIMDBConnString);
 
         /// <summary>
-        /// Opens dialog to get a session.
-        /// </summary>
-        /// <returns></returns>
-        public static ISession? GetOneIMSessionFromDialog() {
-
-            var cdlg = new VI.CommonDialogs.ConnectionDialog();
-            if (cdlg.ShowDialog() != System.Windows.Forms.DialogResult.OK) {
-                return null;
-            }
-
-            return cdlg.ConnectData.Connection.Session;
-        }
-
-        /// <summary>
         /// Opens a OneIM session with the given connection string using Account Based System user auth module
         /// </summary>
         /// <param name="connString"></param>

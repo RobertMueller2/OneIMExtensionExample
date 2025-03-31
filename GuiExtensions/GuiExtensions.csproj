@@ -1,16 +1,23 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
+  <PropertyGroup>
+    <GuiTarget>true</GuiTarget>
+  </PropertyGroup>
   <Import Project="..\shared.props" />
   <PropertyGroup>
-    <ImplicitUsings>enable</ImplicitUsings>
+   <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
     <Configurations>OneIM900;OneIM910;OneIM911;OneIM912;OneIM913;OneIM920;OneIM921;OneIM930</Configurations>
     <OutputPath>..\build\$(Configuration)\</OutputPath>
   </PropertyGroup>
 
+
+
   <ItemGroup>
-    <Reference Include="TypedWrappers_$(AssemblySuffix)">
-      <HintPath>$(AppDataLocation)\TypedWrappers_$(AssemblySuffix).dll</HintPath>
+    <Reference Include="VI.CommonDialogs">
+      <HintPath>$(OneIMBaseDir)\VI.CommonDialogs.dll</HintPath>
     </Reference>
   </ItemGroup>
+
 </Project>
