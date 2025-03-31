@@ -33,10 +33,6 @@ namespace OneIMExtensions {
 }
       </Content>
     </PropertyGroup>
-    <ItemGroup>
-      <Compile Remove="$(ExtensionSettings)" />
-      <Compile Include="$(ExtensionSettings)" />
-    </ItemGroup>
     <WriteLinesToFile File="$(ExtensionSettings)" Lines="$(Content)" Overwrite="true" Encoding="Unicode" />
   </Target>
 
