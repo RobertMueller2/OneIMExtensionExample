@@ -18,6 +18,7 @@
     <TargetFramework Condition="'$(GuiTarget)'=='true'">net8.0-windows</TargetFramework>
     <TargetFramework Condition="'$(GuiTarget)'!='true'">net8.0</TargetFramework>
     <NLogFilename>nlog.config</NLogFilename>
+    <EnableWindowsTargeting>true</EnableWindowsTargeting>
   </PropertyGroup>
 
   <ItemGroup Condition="'$(Configuration)'=='OneIM930'">
