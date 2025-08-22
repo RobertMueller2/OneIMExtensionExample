@@ -1,10 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
+  <PropertyGroup>
+    <GuiTarget>false</GuiTarget>
+  </PropertyGroup>
   <Import Project="..\shared.props" />
   <PropertyGroup>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <Configurations>OneIM900;OneIM910;OneIM911;OneIM912;OneIM913;OneIM920;OneIM921;OneIM930</Configurations>
+    <Configurations>OneIM900;OneIM910;OneIM911;OneIM912;OneIM913;OneIM920;OneIM921;OneIM930;OneIM931</Configurations>
     <OutputPath>..\build\$(Configuration)\</OutputPath>
   </PropertyGroup>
 

@@ -8,11 +8,9 @@
    <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
-    <Configurations>OneIM900;OneIM910;OneIM911;OneIM912;OneIM913;OneIM920;OneIM921;OneIM930</Configurations>
+    <Configurations>OneIM900;OneIM910;OneIM911;OneIM912;OneIM913;OneIM920;OneIM921;OneIM930;OneIM931</Configurations>
     <OutputPath>..\build\$(Configuration)\</OutputPath>
   </PropertyGroup>
-
-
 
   <ItemGroup>
     <Reference Include="VI.CommonDialogs">

@@ -21,10 +21,9 @@
     <EnableWindowsTargeting>true</EnableWindowsTargeting>
   </PropertyGroup>
 
-  <ItemGroup Condition="'$(Configuration)'=='OneIM930'">
-    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.2" />
-    <PackageReference Include="VI.Base" Version="9.3.0-278876" />
-    <PackageReference Include="VI.DB" Version="9.3.0-278876" />
+  <ItemGroup Condition="$(VersionNumber) &gt;= 930">
+    <PackageReference Include="VI.Base" Version="$(VIBaseVersion)" />
+    <PackageReference Include="VI.DB" Version="$(VIDBVersion)" />
   </ItemGroup>
 
   <ItemGroup Condition="$(VersionNumber) &lt; 930">

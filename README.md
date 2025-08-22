@@ -9,8 +9,6 @@ I have not tested the new project files for all the listed versions, but it work
 
 With .NET, using the AssemblyResolve event for customizer and authenticator modules no longer works. Instead, I provided an `Initialize()` method that copies anticipated relevant assemblies (no guarantee I've caught every possible use case) to the executing assembly's directory for .NET and sets the AssemblyResolve event for .NET framework. Using NuGet packages where available is really the preferred way, but this sample DLL can't possibly anticipate which modules an installation should have, so they can't be included statically. It's probably possible to read this from an installation and then dynamically reference the NuGet packages with MSBuild magic. Perhaps I'll add that in the future. That said, I couldn't get VI.Base to load customizer DLLs from referenced NuGet packages, when the DLL was used outside of a frontend installation (LinqPad or ExtensionTester use case). This might receive more testing eventually.
 
-Speaking of NuGet, in order to use this, I had to add the frontend installation NuGet directory as a NuGet package source in Visual Studio and then install the referenced packages. I'm not sure yet if this is the best way. See below in the Visual Studio section.
-
 What is this?
 --
 
@@ -41,10 +39,10 @@ Usage
    - provide an installation directory (`<OneIMBaseDir>`). This ensures that `VI.DB` and `VI.Base` are found at compile time and further dependencies (customizers, authenticator) can be resolved at runtime
    - provide an assembly suffix as observed in table `DialogScriptAssembly` (`<AssemblySuffix>`). This ensures that `TypedWrappers_<AssemblySuffix>.dll` is found at compile time
    - optional: provide a default connection string for use in the `ExtensionTester` or method `Utils.GetDefaultOneIMSession`
- - OneIM 9.3+: Generate packages config in the frontend's NuGet subdirectory. Use `New-PackageConfig.ps1` to create it. This overwrites an existing `packages.config` file without warning. Without this config, I couldn't use the directory as a NuGet source, but haven't done much troubleshooting here. Script is courtesy of ChatGPT ;)
- - After opening the project,
-   - OneIM 9.3+: add the NuGet directory with the new config as a NuGet source and install the packages that the projects reference.
-   - optional: Set ExtensionTester as start project for the solution
+ - OneIM 9.3+:
+   - run DbCompiler for the given OneIM version so the global package dir (`%USERPROFILE%\.nuget\packages`) contains OneIM's Nuget packages
+   - run `dotnet restore /p:Configuration=<Version>`, e.g. `dotnet restore /p:Configuration=OneIM931`
+ - optional: Set ExtensionTester as start project for the solution
  - you can use build.bat where you can build a configuration (e.g. OneIM911) without opening Visual Studio. Using MSBuild requires msbuild.cfg, copy one from "msbuild.cfg examples". Dotnet build is also possible.
 
 `GeneratedExtensionSettings.cs` in project OneIMExtensions is created by MSBuild before compiling. Therefore it is initially missing, and upon switching configurations, does not contain the correct directory and connectionstring until building.  

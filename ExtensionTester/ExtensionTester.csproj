@@ -8,7 +8,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
-    <Configurations>OneIM900;OneIM910;OneIM911;OneIM912;OneIM913;OneIM920;OneIM921;OneIM930</Configurations>
+    <Configurations>OneIM900;OneIM910;OneIM911;OneIM912;OneIM913;OneIM920;OneIM921;OneIM930;OneIM931</Configurations>
     <OutputPath>..\build\$(Configuration)\</OutputPath>
     <OutputType>Exe</OutputType>
   </PropertyGroup>
@@ -56,7 +56,7 @@ namespace ExtensionTester {
     <WriteLinesToFile File="$(Tester)" Lines="$(Content)" Overwrite="true" Encoding="Unicode" />
   </Target>
 
-  <ItemGroup Condition="'$(Configuration)'=='OneIM930'">
+  <ItemGroup Condition="$(VersionNumber) &gt;= 930">
     <Reference Include="VI.CommonDialogs">
       <HintPath>$(OneIMBaseDir)\VI.CommonDialogs.dll</HintPath>
     </Reference>

@@ -142,6 +142,7 @@ if errorlevel 1 (
 goto end
 
 :build_dotnet
+dotnet restore /p:Configuration=%CONFIG%
 dotnet build -c %CONFIG%
 goto end
 
