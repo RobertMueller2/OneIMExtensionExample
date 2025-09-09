@@ -7,7 +7,7 @@ I have changed the main branch to use SDK style project files to allow building 
 
 I have not tested the new project files for all the listed versions, but it worked for 9.0 and 9.3 and building (without testing the DLLs) was also possible for 9.1.3 and 9.2.1.
 
-With .NET, using the AssemblyResolve event for customizer and authenticator modules no longer works. Instead, I provided an `Initialize()` method that copies anticipated relevant assemblies (no guarantee I've caught every possible use case) to the executing assembly's directory for .NET and sets the AssemblyResolve event for .NET framework. Using NuGet packages where available is really the preferred way, but this sample DLL can't possibly anticipate which modules an installation should have, so they can't be included statically. It's probably possible to read this from an installation and then dynamically reference the NuGet packages with MSBuild magic. Perhaps I'll add that in the future. That said, I couldn't get VI.Base to load customizer DLLs from referenced NuGet packages, when the DLL was used outside of a frontend installation (LinqPad or ExtensionTester use case). This might receive more testing eventually.
+With .NET, using the AssemblyResolve event for customizer and authenticator modules no longer appears to work the same way. Instead, I provided an `Initialize()` method that copies anticipated relevant assemblies (no guarantee I've caught every possible use case) to the executing assembly's directory for .NET and sets the AssemblyResolve event for .NET framework. This might receive more testing later.
 
 What is this?
 --
@@ -49,10 +49,6 @@ Usage
   
 Anticipated questions
 --
-### Why are there so many warnings with a 9.3 build?
-
-This is mostly related to version mismatches of dependency DLLs. Analysing and fixing this might take some time and hasn't been a priority yet, getting this to work at all was tricky enough. I don't like build warnings, though, so I plan to look at them at some point when time permits.
-
 ### How do I use this in OneIM?
 
 Yes, that was the main use case in the first place, wasn't it? I figured I had to add some lines here.
@@ -208,14 +204,16 @@ See Linqpad 5 screenshots in the assets subfolder, might link them here eventual
    - `TypedWrappers_<assembly suffix>.dll`
 - In the advanced tab, select "Copy all assemblies..." and "with native and platform-specific..."
 
+Linqpad 8 uses Nuget packages. This includes OneIM dependencies. In order to get OneIM Nuget packages into the Nuget package cache, run a full compile in DBCompiler.
+
 See Linqpad 8 screenshots in the assets subfolder.
 
 ### Can I use a connection dialog?
 
 Yes, see `ConnectDialogExtensions.GetOneIMSessionFromDialog()`, with limitations:
 
-- This does not work from LinqPad 8 with .NET and I have not yet figured out why
-- If the previously selected connection causes an error, loading System.Win32.SystemEvents can fail due to version mismatch. This is likely related to the many build warnings the project causes at this point.
+- This does not work from LinqPad 8 with .NET. LinqPad has its own AssemblyLoadContext for user queries and in this context, System.Windows.Forms is not loaded, which I think is the reason for the error. I plan to investigate this in the future.
+- If the previously selected connection causes an error, loading System.Win32.SystemEvents can fail due to version mismatch. This was potentially related to previous build warnings in 9.3+ which are resolved now, I assume this is fixed but have not confirmed.
 
 ### Can you extend this with foo or bar?
 

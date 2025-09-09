@@ -1,4 +1,5 @@
 ﻿using VI.DB.Entities;
+using System.Windows.Forms;
 
 namespace GuiExtensions {
     public static class ConnectDialogExtensions {
@@ -9,7 +10,7 @@ namespace GuiExtensions {
         public static ISession? GetOneIMSessionFromDialog() {
 
             var cdlg = new VI.CommonDialogs.ConnectionDialog();
-            if (cdlg.ShowDialog() != System.Windows.Forms.DialogResult.OK) {
+            if (cdlg.ShowDialog() != DialogResult.OK) {
                 return null;
             }
 

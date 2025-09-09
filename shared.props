@@ -24,6 +24,8 @@
   <ItemGroup Condition="$(VersionNumber) &gt;= 930">
     <PackageReference Include="VI.Base" Version="$(VIBaseVersion)" />
     <PackageReference Include="VI.DB" Version="$(VIDBVersion)" />
+	<!-- specific version is not ideal, but this needs to match what OI has to avoid warnings. Move to user settings later. -->
+	<PackageReference Condition="'$(GuiTarget)'=='true'" Include="System.Drawing.Common" Version="9.0.0.0" />
   </ItemGroup>
 
   <ItemGroup Condition="$(VersionNumber) &lt; 930">

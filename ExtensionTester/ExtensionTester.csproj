@@ -60,9 +60,6 @@ namespace ExtensionTester {
     <Reference Include="VI.CommonDialogs">
       <HintPath>$(OneIMBaseDir)\VI.CommonDialogs.dll</HintPath>
     </Reference>
-    <Reference Include="System.Drawing.Common">
-      <HintPath>$(OneIMBaseDir)\System.Drawing.Common.dll</HintPath>
-    </Reference>
   </ItemGroup>
 
   <ItemGroup>
