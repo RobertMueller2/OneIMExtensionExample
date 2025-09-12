@@ -157,7 +157,7 @@ localsettings.props examples:
 </Project>
 ```
 
-For 9.3 this also requires to add the OneIM NuGet dir as a NuGet source, e.g. `dotnet nuget add source /home/User/Workdir/OneIM/binaries/930/NuGet/` and this requires `packages.config` (mentioned above, the powershell script works in Linux powershell).
+One challenge is to get the NuGet packages into the package cache. The OneIM installation NuGet subdirectory lacks a packages.config file, otherwise it could be used as a local package source. This repo has a powershell script (`New-PackageConfig.ps1`) that can be used to create one, then `dotnet nuget add source <NuGet subdir of OneIM installation>` can be used to add it as a local source.
 
 ### How do I use this in LinqPad?
 
@@ -212,8 +212,7 @@ See Linqpad 8 screenshots in the assets subfolder.
 
 Yes, see `ConnectDialogExtensions.GetOneIMSessionFromDialog()`, with limitations:
 
-- This does not work from LinqPad 8 with .NET. LinqPad has its own AssemblyLoadContext for user queries and in this context, System.Windows.Forms is not loaded, which I think is the reason for the error. I plan to investigate this in the future.
-- If the previously selected connection causes an error, loading System.Win32.SystemEvents can fail due to version mismatch. This was potentially related to previous build warnings in 9.3+ which are resolved now, I assume this is fixed but have not confirmed.
+- I could not get this to work from LinqPad 8. At least not using .NET 8. LinqPad has its own AssemblyLoadContext for user queries. This way, both a 8.0 (from .NET, loaded by LinqPad) and 9.0 (dependency of `VI.CommonDialogs.dll`) `System.Drawing.Common` are loaded. As a result, I see an error `Method not found: 'Void System.Windows.Forms.Control.set_Font(System.Drawing.Font)'`. It's possible there is a clever way of loading assemblies in a clever way with LinqPads separate contexts in mind. It seems also possible to just use .NET 9.0 for the LinqPad script.
 
 ### Can you extend this with foo or bar?
 
