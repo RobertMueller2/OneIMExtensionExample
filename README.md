@@ -127,11 +127,11 @@ You could. You would have to edit `localsettings.props` and add a new configurat
 
 ### Can I compile this in VS Code?
 
-Probably. I have not tried with this project. The repository lacks a `.vscode` directory which is probably needed to make it useful. I might try in the future.
+Yes, this should work. However, the project doesn't ship a `.vscode` dir at this point so has no default commands.
 
 ### Can I compile this on Linux?
 
-Yes, if you have dotnet installed, but you need to acquire the dynamic TypedWrappers DLL for your DB (referenced via the `AppDataLocation`). There is no build script for this, but it's possible to run e.g. `dotnet -c OneIM930`. I have used these with Linqpad started via Wine, but I've not tried if they have any use on the Linux host itself. In theory, 9.3+ DLLs should just work (except for `GuiExtensions.dll` specifically targetting windows), e.g. with Powershell, csharprepl, etc. but getting everything into place with dependencies could be somewhat tricky, the LinqPad section below might give an idea. The .NET Framework DLLs for &lt;9.3 lack a framework, this might or might not work via Mono.
+Yes, if you have dotnet installed, but you need to acquire the dynamic TypedWrappers DLL for your DB (referenced via the `AppDataLocation`). There is no build script for this, but it's possible to run e.g. `dotnet build -c OneIM930`. I have used these with Linqpad started via Wine, but I've not tried if they have any use on the Linux host itself. In theory, 9.3+ DLLs should just work (except for `GuiExtensions.dll` which specifically target windows), e.g. with Powershell, csharprepl, etc. but getting everything into place with dependencies could be somewhat tricky, the LinqPad section below might give an idea. The .NET Framework DLLs for &lt;9.3 lack a framework, this might or might not work via Mono.
 
 localsettings.props examples:
 
@@ -146,6 +146,8 @@ localsettings.props examples:
     <AssemblySuffix>4o1ozmqeN2QRKPailzL3lAyw8ZkfwSD</AssemblySuffix>
     <!-- replace ; in ConnectionString with %3b -->
     <ConnectionString>Data Source=OneIMDB-93,1493%3bInitial Catalog=OneIM%3bUser ID=OneIM_Admin%3bPassword=Pass_word1</ConnectionString>
+    <VIDBVersion>9.3.0-278876</VIDBVersion>
+    <VIBaseVersion>9.3.0-278876</VIBaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)'=='OneIM922'">
     <OneIMBaseDir>/home/User/Workdir/OneIM/binaries/922</OneIMBaseDir>
@@ -157,7 +159,7 @@ localsettings.props examples:
 </Project>
 ```
 
-One challenge is to get the NuGet packages into the package cache. The OneIM installation NuGet subdirectory lacks a packages.config file, otherwise it could be used as a local package source. This repo has a powershell script (`New-PackageConfig.ps1`) that can be used to create one, then `dotnet nuget add source <NuGet subdir of OneIM installation>` can be used to add it as a local source.
+One challenge with .NET is to get the NuGet packages into the package cache. While on Windows, this just works with running DbCompiler. But DbCompiler and DbCompilerCMD are net80-windows executables, so can't be run on Linux. The easiest way was to create a local Nuget source, e.g. `/home/USER/OneIM/NuGet`, copy all .nupkg files from OneIM installation NuGet subfolder to this directory, and add it as a local NuGet source, e.g. `dotnet nuget add source /home/USER/OneIM/NuGet -n OneIM-local`. At that point, restoring the projects works, e.g. `dotnet restore /p:Configuration=OneIM930`. I might add something to the build config to automate this in the future.
 
 ### How do I use this in LinqPad?
 
