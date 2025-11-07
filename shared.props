@@ -51,4 +51,13 @@
     </Reference>
   </ItemGroup>
 
+  <Target Name="PackNupkg" AfterTargets="Pack">
+    <PropertyGroup>
+      <NugetPackage>$(OutputPath)\..\$(AssemblyName).$(PackageVersion).nupkg</NugetPackage>
+      <NugetPackageTarget>$(OutputPath)\..\$(AssemblyName).nupkg.zip</NugetPackageTarget>
+    </PropertyGroup>
+
+    <Exec Command="powershell -NoProfile -Command &quot;Compress-Archive -Path '$(NugetPackage)' -DestinationPath '$(NugetPackageTarget)' -Force&quot;" />
+  </Target>
+
 </Project>

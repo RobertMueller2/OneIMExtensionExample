@@ -40,7 +40,7 @@ Usage
    - provide an assembly suffix as observed in table `DialogScriptAssembly` (`<AssemblySuffix>`). This ensures that `TypedWrappers_<AssemblySuffix>.dll` is found at compile time
    - optional: provide a default connection string for use in the `ExtensionTester` or method `Utils.GetDefaultOneIMSession`
  - OneIM 9.3+:
-   - run DbCompiler for the given OneIM version so the global package dir (`%USERPROFILE%\.nuget\packages`) contains OneIM's Nuget packages
+   - run DbCompiler for the given OneIM version so the global package dir (`%USERPROFILE%\.nuget\packages`) contains OneIM's NuGet packages
    - run `dotnet restore /p:Configuration=<Version>`, e.g. `dotnet restore /p:Configuration=OneIM931`
  - optional: Set ExtensionTester as start project for the solution
  - you can use build.bat where you can build a configuration (e.g. OneIM911) without opening Visual Studio. Using MSBuild requires msbuild.cfg, copy one from "msbuild.cfg examples". Dotnet build is also possible.
@@ -79,21 +79,11 @@ End Function
 
 #### 9.3+
 
-This is a bit more complicated, as 3rd party assemblies have to be provided as NuGet packages now. I'm still looking to add this in the build process. For now, I only have token manual instructions (Sorry for that). Go to the build directory for 9.3, and use
+Building the projects also creates `.nupkg` and `.nupkg.zip` files.
 
-```
-nuget spec OneIMExtensions.dll
-nuget spec TypedWrapperExtensions.dll
-```
+For just local usage, copy the nupkg files to your frontend's NuGet subdirectory. The zip file could be used with software loader to distribute it. I just added this for reference.
 
-The spec files have to be edited to only include the one DLL, after all, all the dependencies are already present. `lib` target is sufficient although they should really be in target folders (e.g. `net8.0-windows`).
-
-```
-nuget pack OneIMExtensions.dll.nuspec
-nuget pack TypedWrapperExtensions.dll.nuspec
-```
-
-Then copy the nupkg files to your frontends NuGet subdirectory.
+Please note, I have not tested how this behaves when replacing the NuGet package. After using it, there is a copy in the NuGet cache (`%USERPROFILE%\.nuget\packages`). The cache might be stale if you just replace the NuGet package in the NuGet subfolder, I couldn't tell up to this point in time.
 
 Working example, pretty much the same as above:
 
@@ -206,7 +196,9 @@ See Linqpad 5 screenshots in the assets subfolder, might link them here eventual
    - `TypedWrappers_<assembly suffix>.dll`
 - In the advanced tab, select "Copy all assemblies..." and "with native and platform-specific..."
 
-Linqpad 8 uses Nuget packages. This includes OneIM dependencies. In order to get OneIM Nuget packages into the Nuget package cache, run a full compile in DBCompiler.
+Linqpad 8 uses NuGet packages. This includes OneIM dependencies. In order to get OneIM NuGet packages into the NuGet package cache, run a full compile in DBCompiler.
+
+Theoretically, Linqpad 8 should also get along with the NuGet packages for the above DLLs. I have not tried this.
 
 See Linqpad 8 screenshots in the assets subfolder.
 
