@@ -2,6 +2,15 @@
   <PropertyGroup>
     <AppDataLocation>$(LocalAppData)\One Identity\One Identity Manager\AssemblyCache</AppDataLocation>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)'=='OneIM1000'">
+    <OneIMBaseDir>c:\OneIM\frontends\fe1000</OneIMBaseDir>
+    <VIDBVersion>10.0.0-338026</VIDBVersion>
+    <VIBaseVersion>10.0.0-338026</VIBaseVersion>
+    <!-- replace AssemblySuffix with suffix observed in table DialogScriptAssembly -->
+    <AssemblySuffix>B2T8rrXAWThyb0jZgblSWoOHvC9gMWU</AssemblySuffix>
+    <!-- replace ; in ConnectionString with %3b -->
+    <ConnectionString>Data Source=OneIMDB-100,14100%3bInitial Catalog=OneIM%3bUser ID=OneIM_Admin%3bPassword=Pass_word1</ConnectionString>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)'=='OneIM931'">
     <OneIMBaseDir>c:\OneIM\frontends\fe931</OneIMBaseDir>
     <VIDBVersion>9.3.0-311513</VIDBVersion>

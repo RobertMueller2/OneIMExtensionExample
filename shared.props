@@ -14,9 +14,17 @@
     <NLogFilename>globallog.config</NLogFilename>
   </PropertyGroup>
 
+  <PropertyGroup Condition="$(VersionNumber) &gt;= 1000">
+    <DotNetVersion>10.0</DotNetVersion>
+  </PropertyGroup>
+ 
+  <PropertyGroup Condition="$(VersionNumber) &gt;= 930 And $(VersionNumber) &lt; 1000">
+    <DotNetVersion>8.0</DotNetVersion>
+  </PropertyGroup>
+ 
   <PropertyGroup Condition="$(VersionNumber) &gt;= 930">
-    <TargetFramework Condition="'$(GuiTarget)'=='true'">net8.0-windows</TargetFramework>
-    <TargetFramework Condition="'$(GuiTarget)'!='true'">net8.0</TargetFramework>
+    <TargetFramework Condition="'$(GuiTarget)'=='true'">net$(DotNetVersion)-windows</TargetFramework>
+    <TargetFramework Condition="'$(GuiTarget)'!='true'">net$(DotNetVersion)</TargetFramework>
     <NLogFilename>nlog.config</NLogFilename>
     <EnableWindowsTargeting>true</EnableWindowsTargeting>
   </PropertyGroup>

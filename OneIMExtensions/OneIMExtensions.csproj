@@ -7,7 +7,7 @@
   <PropertyGroup>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <Configurations>OneIM900;OneIM910;OneIM911;OneIM912;OneIM913;OneIM920;OneIM921;OneIM930;OneIM931;OneIM922</Configurations>
+    <Configurations>OneIM900;OneIM910;OneIM911;OneIM912;OneIM913;OneIM920;OneIM921;OneIM930;OneIM931;OneIM922;OneIM1000</Configurations>
     <OutputPath>..\build\$(Configuration)\</OutputPath>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>
